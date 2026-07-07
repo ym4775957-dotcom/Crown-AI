@@ -1,0 +1,25 @@
+{
+  "topic": "Machine Learning",
+  "cards": [
+    {
+      "card_id": 1,
+      "question": "Key concept question #1 for study topic: Machine Learning?",
+      "answer": "Verified answer explanation #1 matching study material of Machine Learning."
+    },
+    {
+      "card_id": 2,
+      "question": "Key concept question #2 for study topic: Machine Learning?",
+      "answer": "Verified answer explanation #2 matching study material of Machine Learning."
+    },
+    {
+      "card_id": 3,
+      "question": "Key concept question #3 for study topic: Machine Learning?",
+      "answer": "Verified answer explanation #3 matching study material of Machine Learning."
+    },
+    {
+      "card_id": 4,
+      "question": "Key concept question #4 for study topic: Machine Learning?",
+      "answer": "Verified answer explanation #4 matching study material of Machine Learning."
+    }
+  ]
+}

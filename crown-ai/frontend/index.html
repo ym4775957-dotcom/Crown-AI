@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crown AI - Multi-Agent Command Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Sleek Header -->
+        <header class="main-header">
+            <div class="logo-container">
+                <div class="crown-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 21H19V19H5V21ZM5 17H19V15H5V17ZM12 2L15 8L22 9L17 14L18.5 21L12 17L5.5 21L7 14L2 9L9 8L12 2Z" fill="url(#crown-grad)"/>
+                        <defs>
+                            <linearGradient id="crown-grad" x1="2" y1="2" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#8b5cf6"/>
+                                <stop offset="50%" stop-color="#ec4899"/>
+                                <stop offset="100%" stop-color="#3b82f6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1>Crown <span>AI</span></h1>
+                <span class="badge version">v2.0 Beta</span>
+            </div>
+            <div class="system-status">
+                <div class="status-item">
+                    <span class="status-indicator online"></span>
+                    <span>Backend Server: <strong id="backend-status">Checking...</strong></span>
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator online" id="ws-indicator"></span>
+                    <span>WebSocket: <strong id="ws-status">Connecting...</strong></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Workspace -->
+        <main class="dashboard-grid">
+            
+            <!-- Left Panel: Control and Inputs -->
+            <section class="control-panel glass-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-terminal"></i> Task Console</h2>
+                    <span class="subtitle">Issue directives to the Multi-Agent engine</span>
+                </div>
+                
+                <form id="task-form" class="task-form">
+                    <div class="input-wrapper">
+                        <textarea id="task-input" placeholder="e.g. Schedule deep study blocks for my Machine Learning exam on Friday and optimize my study plan..." required></textarea>
+                        <div class="textarea-actions">
+                            <button type="button" class="preset-btn" id="ml-preset">ML Exam Schedule</button>
+                            <button type="button" class="preset-btn" id="algo-preset">Algorithm Prep</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submit-task">
+                        <span>Dispatch Agents</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+
+                <!-- Agent Status Monitor Grid -->
+                <div class="agents-status-container">
+                    <h3><i class="fa-solid fa-network-wired"></i> Orchestrated ADK Team</h3>
+                    <div class="agents-list" id="agents-list">
+                        <!-- Orchestrator -->
+                        <div class="agent-node" id="node-Orchestrator">
+                            <div class="agent-info">
+                                <span class="agent-icon"><i class="fa-solid fa-crown"></i></span>
+                                <div>
+                                    <span class="agent-name">Orchestrator Agent</span>
+                                    <span class="agent-role">System Coordinator</span>
+                                </div>
+                            </div>
+                            <span class="agent-badge idle" id="badge-Orchestrator">IDLE</span>
+                        </div>
+                        
+                        <!-- Planner -->
+                        <div class="agent-node" id="node-Planner">
+                            <div class="agent-info">
+                                <span class="agent-icon"><i class="fa-solid fa-sitemap"></i></span>
+                                <div>
+                                    <span class="agent-name">Planner Agent</span>
+                                    <span class="agent-role">Plan Decomposer</span>
+                                </div>
+                            </div>
+                            <span class="agent-badge idle" id="badge-Planner">IDLE</span>
+                        </div>
+
+                        <!-- Task Optimization -->
+                        <div class="agent-node" id="node-TaskOptimization">
+                            <div class="agent-info">
+                                <span class="agent-icon"><i class="fa-solid fa-sliders"></i></span>
+                                <div>
+                                    <span class="agent-name">Task Optimizer</span>
+                                    <span class="agent-role">SMART Refiner</span>
+                                </div>
+                            </div>
+                            <span class="agent-badge idle" id="badge-TaskOptimization">IDLE</span>
+                        </div>
+
+                        <!-- Research -->
+                        <div class="agent-node" id="node-Research">
+                            <div class="agent-info">
+                                <span class="agent-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                                <div>
+                                    <span class="agent-name">Research Agent</span>
+                                    <span class="agent-role">Data Aggregator</span>
+                                </div>
+                            </div>
+                            <span class="agent-badge idle" id="badge-Research">IDLE</span>
+                        </div>
+
+                        <!-- Exam/Study -->
+                        <div class="agent-node" id="node-ExamStudy">
+                            <div class="agent-info">
+                                <span class="agent-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                                <div>
+                                    <span class="agent-name">Exam Study Agent</span>
+                                    <span class="agent-role">Flashcard Maker</span>
+                                </div>
+                            </div>
+                            <span class="agent-badge idle" id="badge-ExamStudy">IDLE</span>
+                        </div>
+
+                        <!-- Life Scheduler -->
+                        <div class="agent-node" id="node-LifeScheduler">
+                            <div class="agent-info">
+                                <span class="agent-icon"><i class="fa-solid fa-calendar-days"></i></span>
+                                <div>
+                                    <span class="agent-name">Life Scheduler</span>
+                                    <span class="agent-role">Time Blocker</span>
+                                </div>
+                            </div>
+                            <span class="agent-badge idle" id="badge-LifeScheduler">IDLE</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Center Panel: Workflow Graph & Live Output -->
+            <section class="output-panel">
+                <!-- Top Tabs -->
+                <div class="tabs-container glass-card">
+                    <button class="tab-btn active" id="tab-report">Report Output</button>
+                    <button class="tab-btn" id="tab-calendar">Active Calendar</button>
+                    <button class="tab-btn" id="tab-mcp">MCP Tools & Skills</button>
+                    <button class="tab-btn" id="tab-security">Security Controls</button>
+                </div>
+
+                <!-- Tab Content: Report -->
+                <div class="tab-content active glass-card" id="content-report">
+                    <div class="output-display" id="output-report-container">
+                        <div class="empty-state">
+                            <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
+                            <h3>No Active Report</h3>
+                            <p>Dispatch the ADK agent team to view structured output results here.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Calendar -->
+                <div class="tab-content glass-card" id="content-calendar">
+                    <div class="calendar-display">
+                        <div class="section-title">
+                            <h3><i class="fa-solid fa-calendar-check"></i> Scheduled Time Blocks</h3>
+                            <p>Dynamically populated by the Life Scheduler Agent</p>
+                        </div>
+                        <div class="calendar-list" id="calendar-items-list">
+                            <!-- Items dynamically added -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: MCP Tools -->
+                <div class="tab-content glass-card" id="content-mcp">
+                    <div class="mcp-display">
+                        <div class="section-title">
+                            <h3><i class="fa-solid fa-toolbox"></i> Model Context Protocol (MCP) Server</h3>
+                            <p>Exposing localized skills and endpoints to LLM Agents</p>
+                        </div>
+                        <div class="mcp-grid" id="mcp-tools-grid">
+                            <!-- Tools populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Security Controls -->
+                <div class="tab-content glass-card" id="content-security">
+                    <div class="security-display">
+                        <div class="section-title">
+                            <h3><i class="fa-solid fa-shield-halved"></i> Security & Safe Execution Safeguards</h3>
+                            <p>Validation constraints checked before processing and tool execution</p>
+                        </div>
+                        <div class="security-rules">
+                            <div class="rule-card">
+                                <div class="rule-header">
+                                    <span class="rule-icon checked"><i class="fa-solid fa-circle-check"></i></span>
+                                    <h4>Input Validation Guard</h4>
+                                </div>
+                                <p>Sanitizes prompts against CLI/shell injection queries, blacklists dangerous binaries (powershell, cmd, bash, format, rm).</p>
+                            </div>
+                            <div class="rule-card">
+                                <div class="rule-header">
+                                    <span class="rule-icon checked"><i class="fa-solid fa-circle-check"></i></span>
+                                    <h4>Directory Constraint Validation</h4>
+                                </div>
+                                <p>Prevents file traversal attempts. Ensures file writes/reads occur strictly within the <code>crown-ai</code> workspace boundary.</p>
+                            </div>
+                            <div class="rule-card">
+                                <div class="rule-header">
+                                    <span class="rule-icon checked"><i class="fa-solid fa-circle-check"></i></span>
+                                    <h4>MCP Argument Schema Checking</h4>
+                                </div>
+                                <p>Validates parameters structure, parameter type alignment, and bounds (e.g., card counts limits, date matches) prior to tool executions.</p>
+                            </div>
+                            <div class="rule-card">
+                                <div class="rule-header">
+                                    <span class="rule-icon checked"><i class="fa-solid fa-circle-check"></i></span>
+                                    <h4>Python Script Sandbox Checks</h4>
+                                </div>
+                                <p>Restricts imports of builtins like <code>os</code>, <code>subprocess</code>, or <code>shutil</code> to avoid unvalidated system manipulations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Logs Console -->
+            <section class="logs-panel glass-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-rectangle-list"></i> Real-time Activity Logs</h2>
+                    <button class="clear-logs-btn" id="clear-logs"><i class="fa-solid fa-eraser"></i> Clear</button>
+                </div>
+                <div class="logs-console" id="logs-console">
+                    <div class="log-row sys">
+                        <span class="log-timestamp">[System]</span> Welcome to Crown AI Dashboard. Ready for multi-agent dispatch.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Script File -->
+    <script src="app.js"></script>
+</body>
+</html>
