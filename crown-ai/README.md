@@ -4,6 +4,7 @@ Crown AI is a high-fidelity, secure, and modular full-stack multi-agent system e
 
 The system features six collaborative, specialized agents coordinated by a central Orchestrator that decomposes, refines, researches, and schedules complex user queries (such as exam study planners, calendar allocations, and project task management) through a deterministic workflow graph.
 
+<img width="1363" height="631" alt="Image" src="https://github.com/user-attachments/assets/a9870908-a548-4615-8c6d-0999da8ac3d2" />
 ---
 
 ## 🏛️ Core Concepts Applied
